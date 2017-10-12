@@ -12,7 +12,7 @@ import spock.lang.Specification
 
 @SpringBootTest
 @DataJpaTest
-class AccountServiceTest extends Specification {
+class AccountRepositoryTest extends Specification {
     @Autowired
     private AccountRepository repository
 
