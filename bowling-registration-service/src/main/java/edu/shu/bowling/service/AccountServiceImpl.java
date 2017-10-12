@@ -1,5 +1,6 @@
 package edu.shu.bowling.service;
 
+import edu.shu.bowling.common.AccountAlreadyExistException;
 import edu.shu.bowling.model.Account;
 import edu.shu.bowling.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +12,12 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
 
     @Override
-    public boolean register(Account account) {
-        try {
-            accountRepository.saveAndFlush(account);
-        }catch (Exception exception)
-        {
-            exception.printStackTrace();
-            return false;
-        }
-        return true;
+    public Account register(Account account) {
+
+            if(accountRepository.exists(account.getUserId()))
+            {
+                throw new AccountAlreadyExistException("Account Already Exist");
+            }
+            return accountRepository.saveAndFlush(account);
     }
 }

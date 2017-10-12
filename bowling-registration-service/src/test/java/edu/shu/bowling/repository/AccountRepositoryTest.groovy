@@ -25,6 +25,6 @@ class AccountRepositoryTest extends Specification {
         when: "account is registered"
             def result = repository.saveAndFlush(account)
         then: "record should be saved"
-        result.firstName == "Jignesh"
+        result.firstName == "ignesh"
     }
 }
