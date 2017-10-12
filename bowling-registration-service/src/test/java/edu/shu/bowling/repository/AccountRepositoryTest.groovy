@@ -1,20 +1,15 @@
 package edu.shu.bowling.repository
 
 import edu.shu.bowling.model.Account
-import edu.shu.bowling.repository.AccountRepository
-import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.junit4.SpringRunner
 import spock.lang.Specification
 
-
-@SpringBootTest
 @DataJpaTest
 class AccountRepositoryTest extends Specification {
     @Autowired
     private AccountRepository repository
+
 
     def "Save account record in database"() {
 
@@ -30,6 +25,6 @@ class AccountRepositoryTest extends Specification {
         when: "account is registered"
             def result = repository.saveAndFlush(account)
         then: "record should be saved"
-        result.firstName == "jignesh"
+        result.firstName == "Jignesh"
     }
 }
