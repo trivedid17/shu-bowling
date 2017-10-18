@@ -22,9 +22,9 @@ class AccountRepositoryTest extends Specification {
                 account.setEmail("about@com")
                 account.setPhone("46583465")
                 account.setPassword("sadasdas")
-        when: "account is registered"
+        when: "account is saved"
             def result = repository.saveAndFlush(account)
         then: "record should be saved"
-        result.firstName == "ignesh"
+        result.firstName == "Jignesh"
     }
 }
