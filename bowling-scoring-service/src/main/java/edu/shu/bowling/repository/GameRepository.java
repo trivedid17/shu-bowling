@@ -1,4 +1,4 @@
-package edu.shu.bowling;
+package edu.shu.bowling.repository;
 
 import edu.shu.bowling.model.Game;
 import org.springframework.data.jpa.repository.JpaRepository;

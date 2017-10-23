@@ -1,6 +1,6 @@
 package edu.shu.bowling.repository
 
-import edu.shu.bowling.GameRepository
+import edu.shu.bowling.repository.GameRepository
 import edu.shu.bowling.model.Game
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
