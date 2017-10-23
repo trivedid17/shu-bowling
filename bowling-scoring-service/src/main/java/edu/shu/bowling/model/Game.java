@@ -2,7 +2,10 @@ package edu.shu.bowling.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Game {
@@ -19,6 +22,23 @@ public class Game {
 
     @Column(name = "end_time")
     private Date endTimeDate;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name ="game_bowler", joinColumns = @JoinColumn(name = "game_id", referencedColumnName = "game_id"), inverseJoinColumns =@JoinColumn(name = "bowler_id", referencedColumnName = "bowler_id"))
+    @Size(min=1, max=7, message="The number of players in a game must be between {min} and {max}")
+    private Set<Bowler> bowlers;
+
+    public Game(){
+        bowlers = new HashSet<Bowler>();
+    }
+
+    public Set<Bowler> getBowlers() {
+        return bowlers;
+    }
+
+    public void setBowlers(Set<Bowler> bowlers) {
+        this.bowlers = bowlers;
+    }
 
     public String getGameId() {
         return gameId;
