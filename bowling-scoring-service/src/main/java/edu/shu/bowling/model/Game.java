@@ -25,7 +25,7 @@ public class Game {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name ="game_bowler", joinColumns = @JoinColumn(name = "game_id", referencedColumnName = "game_id"), inverseJoinColumns =@JoinColumn(name = "bowler_id", referencedColumnName = "bowler_id"))
-    @Size(min=1, max=7, message="The number of players in a game must be between {min} and {max}")
+    @Size(min=1, max=6, message="The number of players in a game must be between {min} and {max}")
     private Set<Bowler> bowlers;
 
     public Game(){
