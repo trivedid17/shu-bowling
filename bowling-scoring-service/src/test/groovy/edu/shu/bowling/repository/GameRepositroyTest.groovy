@@ -47,7 +47,7 @@ class GameRepositroyTest extends Specification {
         then: "should throw exception"
         final javax.validation.ConstraintViolationException exception = thrown()
         final message = exception.getConstraintViolations().getAt(0).message
-        message == "The number of players in a game must be between 1 and 7"
+        message == "The number of players in a game must be between 1 and 6"
     }
 
     def "Game should not have more than 6 players"() {

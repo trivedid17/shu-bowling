@@ -1,5 +1,6 @@
 package edu.shu.bowling.service
 
+import edu.shu.bowling.common.ValidationException
 import edu.shu.bowling.model.Bowler
 import edu.shu.bowling.model.Game
 import org.springframework.beans.factory.annotation.Autowired
@@ -61,8 +62,8 @@ class ScoringServiceImplTest extends Specification {
         when: "game is started"
         def result = scoreService.startGame(game)
         then: "should throw exception"
-        final javax.validation.ConstraintViolationException exception = thrown()
-        final message = exception.getConstraintViolations().getAt(0).message
-        message == "The number of players in a game must be between 1 and 6"
+        final ValidationException exception = thrown()
+        final message = exception.message
+        message == "The number of players in a game must be between 1 and 6\n"
     }
 }
