@@ -23,13 +23,17 @@ public class Game {
     @Column(name = "end_time")
     private Date endTimeDate;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status" )
+    private GameStatus status=GameStatus.ACTIVE;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name ="game_bowler", joinColumns = @JoinColumn(name = "game_id", referencedColumnName = "game_id"), inverseJoinColumns =@JoinColumn(name = "bowler_id", referencedColumnName = "bowler_id"))
     @Size(min=1, max=6, message="The number of players in a game must be between {min} and {max}")
     private Set<Bowler> bowlers;
 
     public Game(){
-        bowlers = new HashSet<Bowler>();
+        bowlers = new HashSet<>();
     }
 
     public Set<Bowler> getBowlers() {
@@ -70,6 +74,14 @@ public class Game {
 
     public void setEndTimeDate(Date endTimeDate) {
         this.endTimeDate = endTimeDate;
+    }
+
+    public GameStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(GameStatus status) {
+        this.status = status;
     }
 
 }
