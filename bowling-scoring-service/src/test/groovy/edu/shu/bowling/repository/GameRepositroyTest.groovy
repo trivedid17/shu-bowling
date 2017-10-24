@@ -1,7 +1,6 @@
 package edu.shu.bowling.repository
 
 import edu.shu.bowling.model.Bowler
-import edu.shu.bowling.repository.GameRepository
 import edu.shu.bowling.model.Game
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
@@ -60,7 +59,7 @@ class GameRepositroyTest extends Specification {
 
         def bowlers =new HashSet<Bowler>()
 
-        for(int i=0;i<8;i++) {
+        for(int i=0;i<7;i++) {
            def bowler = new Bowler()
             bowler.setName("Mayak"+i)
             bowlers.add(bowler)
