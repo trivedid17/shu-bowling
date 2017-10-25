@@ -3,11 +3,9 @@ package edu.shu.bowling.service;
 import edu.shu.bowling.common.GameNotActiveException;
 import edu.shu.bowling.common.GameNotExistException;
 import edu.shu.bowling.common.ValidationException;
-import edu.shu.bowling.model.Bowler;
-import edu.shu.bowling.model.Game;
-import edu.shu.bowling.model.GameBowler;
-import edu.shu.bowling.model.GameStatus;
+import edu.shu.bowling.model.*;
 import edu.shu.bowling.repository.BowlerRepositroy;
+import edu.shu.bowling.repository.FrameRepository;
 import edu.shu.bowling.repository.GameRepository;
 import edu.shu.bowling.rest.input.CalculateScoreInput;
 import edu.shu.bowling.rest.input.StartGameInput;
@@ -18,6 +16,8 @@ import org.springframework.ui.Model;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service("ScoreService")
 public class ScoreServiceImpl implements ScoreService {
@@ -27,6 +27,9 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Autowired
     private BowlerRepositroy bowlerRepositroy;
+
+    @Autowired
+    private FrameRepository frameRepository;
 
     @Override
     public String startGame(StartGameInput input) {
@@ -68,19 +71,57 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     public Game calculteScore(CalculateScoreInput throwPins) {
 
-        Game result;
+        Game game;
 
-       result= gameRepository.findOne(throwPins.getGameId());
-       if(result == null)
+        game= gameRepository.findOne(throwPins.getGameId());
+       if(game == null)
        {
            throw new GameNotExistException("Game with gameId="+throwPins.getGameId()+" does not exist");
        }
 
-       if(result.getStatus() != GameStatus.ACTIVE)
+       if(game.getStatus() != GameStatus.ACTIVE)
        {
            throw new GameNotActiveException("Game with gameId="+throwPins.getGameId()+" is not active");
        }
 
-       return result;
+
+       //if it is first throw for current player then create new frame else create new one
+       /*Bowler bowler = bowlerRepositroy.findOne(game.getCurrentBowler());
+
+        FrameId frameId = new FrameId();
+        frameId.setGame(game);
+        frameId.setBowler(bowler);
+        frameId.setSeqNo(game.getCurrentFrameNo());
+        Frame frame =  frameRepository.findOne(frameId);
+
+        Map<Byte,GameBowler> bowlersListBySeqNo = new HashMap<>();
+        Map<String,GameBowler> bowlersListById = new HashMap<>();
+        for(GameBowler gameBowler : game.getBowlers())
+        {
+            bowlersListBySeqNo.put(gameBowler.getSeqNo(),gameBowler);
+            bowlersListById.put(gameBowler.getBowler().getBowlerId(),gameBowler);
+        }
+
+        boolean isNextBowler = false;
+        if(frame != null)
+        {
+
+        }
+
+        if(isNextBowler)
+        {
+            frameId = new FrameId();
+            frameId.setGame(game);
+            //get NextBowler
+            int totalPlayers = game.getBowlers().size();
+
+
+            frameId.setBowler(bowler);
+
+        }
+*/
+
+
+       return game;
     }
 }

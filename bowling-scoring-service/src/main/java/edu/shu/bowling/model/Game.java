@@ -24,9 +24,16 @@ public class Game {
     @Column(name = "end_time")
     private Date endTimeDate;
 
+    @Column(name = "frame_no")
+    private byte currentFrameNo=1;
+
+    @Column(name = "bowler_id")
+    private String currentBowler;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status" )
     private GameStatus status=GameStatus.ACTIVE;
+
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     @Size(max = 6, min = 1, message = "The number of players in a game must be between {min} and {max}")
@@ -34,6 +41,22 @@ public class Game {
 
     public Game() {
         this.bowlers = new HashSet<>();
+    }
+
+    public String getCurrentBowler() {
+        return currentBowler;
+    }
+
+    public void setCurrentBowler(String currentBowler) {
+        this.currentBowler = currentBowler;
+    }
+
+    public byte getCurrentFrameNo() {
+        return currentFrameNo;
+    }
+
+    public void setCurrentFrameNo(byte currentFrameNo) {
+        this.currentFrameNo = currentFrameNo;
     }
 
     public Set<GameBowler> getBowlers() {
