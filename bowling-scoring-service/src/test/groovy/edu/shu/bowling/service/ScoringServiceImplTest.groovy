@@ -5,8 +5,11 @@ import edu.shu.bowling.common.GameNotExistException
 import edu.shu.bowling.common.ValidationException
 import edu.shu.bowling.model.Bowler
 import edu.shu.bowling.model.Game
+import edu.shu.bowling.model.GameBowler
 import edu.shu.bowling.model.GameStatus
+import edu.shu.bowling.repository.GameRepository
 import edu.shu.bowling.rest.input.CalculateScoreInput
+import edu.shu.bowling.rest.input.StartGameInput
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
@@ -16,20 +19,22 @@ class ScoringServiceImplTest extends Specification {
 
     @Autowired
     private ScoreService scoreService
+
+    @Autowired
+    private GameRepository gameRepository
+
     def "Start a new Game with 6 players"() {
 
         given: "A Game"
-        def game = new Game()
+        def game = new StartGameInput()
         game.setLaneId(1)
-        game.setStartTime(new Date())
 
-        def bowlers = new HashSet<Bowler>()
         for(int i=0;i<6;i++) {
             def bowler = new Bowler()
             bowler.setName("Player"+i)
-            bowlers.add(bowler)
+            game.getBowlers().add(bowler)
         }
-        game.setBowlers(bowlers)
+
         when: "game is started"
         def result = scoreService.startGame(game)
         then: "should return new gameId"
@@ -39,17 +44,13 @@ class ScoringServiceImplTest extends Specification {
     def "Start a new Game with 1 players"() {
 
         given: "A Game"
-        def game = new Game()
-        game.setLaneId(2)
-        game.setStartTime(new Date())
+        def game = new StartGameInput()
+        game.setLaneId(1)
 
-        def bowlers = new HashSet<Bowler>()
+        def bowler = new Bowler()
+        bowler.setName("Mayak")
+        game.getBowlers().add(bowler)
 
-            def bowler = new Bowler()
-            bowler.setName("Player")
-            bowlers.add(bowler)
-
-        game.setBowlers(bowlers)
         when: "game is started"
         def result = scoreService.startGame(game)
         then: "should return new gameId"
@@ -59,9 +60,8 @@ class ScoringServiceImplTest extends Specification {
     def "Start a new Game without players"() {
 
         given: "A Game"
-        def game = new Game()
-        game.setLaneId(2)
-        game.setStartTime(new Date())
+        def game = new StartGameInput()
+        game.setLaneId(1)
 
         when: "game is started"
           scoreService.startGame(game)
@@ -79,6 +79,7 @@ class ScoringServiceImplTest extends Specification {
         input.gameId = "Not exist"
         input.setPins((byte)22)
 
+
         when: "game is started"
          scoreService.calculteScore(input)
         then: "should throw exception"
@@ -88,20 +89,18 @@ class ScoringServiceImplTest extends Specification {
     def "Play throw for a game which is not active"() {
 
         given: "A Game"
-        def game = new Game()
-        game.setLaneId(2)
-        game.setStartTime(new Date())
-        game.setStatus(GameStatus.FINISHED)
-
-        def bowlers = new HashSet<Bowler>()
+        def gameInput = new StartGameInput()
+        gameInput.setLaneId(2)
 
         def bowler = new Bowler()
         bowler.setName("Player")
-        bowlers.add(bowler)
+        gameInput.getBowlers().add(bowler)
 
-        game.setBowlers(bowlers)
+        def gameId = scoreService.startGame(gameInput)
 
-        def gameId = scoreService.startGame(game)
+        def game= gameRepository.findOne(gameId);
+        game.setStatus(GameStatus.FINISHED)
+        gameRepository.save(game)
 
         def input = new CalculateScoreInput()
         input.gameId = gameId

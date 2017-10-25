@@ -2,6 +2,7 @@ package edu.shu.bowling.repository
 
 import edu.shu.bowling.model.Bowler
 import edu.shu.bowling.model.Game
+import edu.shu.bowling.model.GameBowler
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import spock.lang.Specification
@@ -10,6 +11,9 @@ import spock.lang.Specification
 class GameRepositroyTest extends Specification {
     @Autowired
     private GameRepository repository
+
+    @Autowired
+    private BowlerRepositroy bowlerRepositroy
 
 
     def "Save game record in database"() {
@@ -22,14 +26,19 @@ class GameRepositroyTest extends Specification {
         def bowler = new Bowler()
         bowler.setName("Mayak")
 
-        def bowlers =new HashSet<Bowler>()
-        bowlers.add(bowler)
+        bowlerRepositroy.save(bowler)
 
-        game.setBowlers(bowlers)
+        def gameBowler = new GameBowler()
+        gameBowler.setBowler(bowler)
+        gameBowler.setGame(game)
+        gameBowler.setSeqNo((byte)1)
+
+        game.getBowlers().add(gameBowler)
+
 
         when: "game is saved"
             def result = repository.saveAndFlush(game)
-        then: "gameid in result should be null"
+        then: "gameid in result should not be null"
         result.gameId != null
     }
 
@@ -57,14 +66,19 @@ class GameRepositroyTest extends Specification {
         game.setLaneId(1)
         game.setStartTime(new Date())
 
-        def bowlers =new HashSet<Bowler>()
-
         for(int i=0;i<7;i++) {
            def bowler = new Bowler()
             bowler.setName("Mayak"+i)
-            bowlers.add(bowler)
+            bowlerRepositroy.save(bowler)
+
+            def gameBowler = new GameBowler()
+            gameBowler.setBowler(bowler)
+            gameBowler.setGame(game)
+            gameBowler.setSeqNo((byte)(i+1))
+
+            game.getBowlers().add(gameBowler)
         }
-        game.setBowlers(bowlers)
+
 
         when: "game is saved"
         def result = repository.saveAndFlush(game)

@@ -4,6 +4,7 @@ import edu.shu.bowling.model.Bowler
 import edu.shu.bowling.model.Frame
 import edu.shu.bowling.model.FrameId
 import edu.shu.bowling.model.Game
+import edu.shu.bowling.model.GameBowler
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import spock.lang.Specification
@@ -15,6 +16,9 @@ class FrameRepositroyTest extends Specification {
 
     @Autowired
     private GameRepository gameRepository
+
+    @Autowired
+    private BowlerRepositroy bowlerRepository
 
 
     def "Frame  record in database"() {
@@ -28,17 +32,20 @@ class FrameRepositroyTest extends Specification {
 
             def bowler = new Bowler()
             bowler.setName("Player")
+            bowlerRepository.save(bowler)
 
-            def bowlers =new HashSet<Bowler>()
-            bowlers.add(bowler)
+            def gameBowler =new GameBowler()
+            gameBowler.setSeqNo((byte)1)
+            gameBowler.setGame(game)
+            gameBowler.setBowler(bowler)
 
-            game.setBowlers(bowlers)
-            game=gameRepository.saveAndFlush(game)
+            game.getBowlers().add(gameBowler)
+            game=gameRepository.save(game)
 
             def frameId = new FrameId()
 
             frameId.setGame(game)
-            frameId.setBowler(game.getBowlers().getAt(0))
+            frameId.setBowler(bowler)
 
             frame.setFrameId(frameId)
             frame.setThrow1((byte)3)

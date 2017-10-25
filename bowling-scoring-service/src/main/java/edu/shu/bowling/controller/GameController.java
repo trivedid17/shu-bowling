@@ -3,6 +3,7 @@ package edu.shu.bowling.controller;
 import edu.shu.bowling.model.Bowler;
 import edu.shu.bowling.model.Game;
 import edu.shu.bowling.rest.input.CalculateScoreInput;
+import edu.shu.bowling.rest.input.StartGameInput;
 import edu.shu.bowling.rest.output.GameStartOutput;
 import edu.shu.bowling.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class GameController {
 
     @RequestMapping(value = "/start", method = RequestMethod.POST)
     @ResponseBody
-    public GameStartOutput startGame(@RequestBody Game game) {
+    public GameStartOutput startGame(@RequestBody StartGameInput game) {
         GameStartOutput output = new GameStartOutput();
         String result = scoreService.startGame(game);
         output.setGameId(result);

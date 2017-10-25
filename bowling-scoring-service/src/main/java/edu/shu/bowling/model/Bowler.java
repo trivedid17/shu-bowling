@@ -1,6 +1,9 @@
 package edu.shu.bowling.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Bowler {
@@ -13,19 +16,34 @@ public class Bowler {
     @Column(name = "name")
     private String name;
 
+    @OneToMany(mappedBy = "bowler")
+    private Set<GameBowler> games;
+
+    public Set<GameBowler> getGames() {
+        return games;
+    }
+
+    public void setGames(Set<GameBowler> games) {
+        this.games = games;
+    }
+
     public String getBowlerId() {
+
         return bowlerId;
     }
 
     public void setBowlerId(String bowlerId) {
+
         this.bowlerId = bowlerId;
     }
 
     public String getName() {
+
         return name;
     }
 
     public void setName(String name) {
+
         this.name = name;
     }
 }
