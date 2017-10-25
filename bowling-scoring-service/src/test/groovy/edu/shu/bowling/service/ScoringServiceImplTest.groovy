@@ -7,6 +7,7 @@ import edu.shu.bowling.model.Bowler
 import edu.shu.bowling.model.Game
 import edu.shu.bowling.model.GameBowler
 import edu.shu.bowling.model.GameStatus
+import edu.shu.bowling.repository.BowlerRepositroy
 import edu.shu.bowling.repository.GameRepository
 import edu.shu.bowling.rest.input.CalculateScoreInput
 import edu.shu.bowling.rest.input.StartGameInput
@@ -22,6 +23,9 @@ class ScoringServiceImplTest extends Specification {
 
     @Autowired
     private GameRepository gameRepository
+
+    @Autowired
+    private BowlerRepositroy bowlerRepositroy
 
     def "Start a new Game with 6 players"() {
 
@@ -89,21 +93,26 @@ class ScoringServiceImplTest extends Specification {
     def "Play throw for a game which is not active"() {
 
         given: "A Game"
-        def gameInput = new StartGameInput()
-        gameInput.setLaneId(2)
+        def game = new Game()
+        game.setLaneId(1)
+        game.setStartTime(new Date())
+        game.setStatus(GameStatus.FINISHED)
 
         def bowler = new Bowler()
-        bowler.setName("Player")
-        gameInput.getBowlers().add(bowler)
+        bowler.setName("Mayak")
 
-        def gameId = scoreService.startGame(gameInput)
+        bowlerRepositroy.save(bowler)
 
-        def game= gameRepository.findOne(gameId);
-        game.setStatus(GameStatus.FINISHED)
-        gameRepository.save(game)
+        def gameBowler = new GameBowler()
+        gameBowler.setBowler(bowler)
+        gameBowler.setGame(game)
+        gameBowler.setSeqNo((byte)1)
 
+        game.getBowlers().add(gameBowler)
+
+       def result = gameRepository.saveAndFlush(game)
         def input = new CalculateScoreInput()
-        input.gameId = gameId
+        input.gameId = result.getGameId()
         input.setPins((byte)22)
 
         when: "game is started"
