@@ -1,5 +1,7 @@
 package edu.shu.bowling.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
@@ -17,6 +19,7 @@ public class Bowler {
     private String name;
 
     @OneToMany(mappedBy = "bowler")
+    @JsonIgnore
     private Set<GameBowler> games;
 
     public Set<GameBowler> getGames() {

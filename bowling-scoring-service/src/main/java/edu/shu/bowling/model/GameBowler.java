@@ -1,5 +1,7 @@
 package edu.shu.bowling.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -12,6 +14,7 @@ public class GameBowler implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "game_id")
+    @JsonIgnore
     private Game game;
 
     @Id
