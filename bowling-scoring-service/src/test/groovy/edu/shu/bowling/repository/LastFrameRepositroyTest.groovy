@@ -1,10 +1,6 @@
 package edu.shu.bowling.repository
 
-import edu.shu.bowling.model.Bowler
-import edu.shu.bowling.model.FrameId
-import edu.shu.bowling.model.Game
-import edu.shu.bowling.model.GameBowler
-import edu.shu.bowling.model.LastFrame
+import edu.shu.bowling.model.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import spock.lang.Specification
@@ -15,7 +11,7 @@ class LastFrameRepositroyTest extends Specification {
     private LastFrameRepository repository
 
     @Autowired
-    private BowlerRepositroy bowlerRepository
+    private BowlerRepository bowlerRepository
 
     @Autowired
     private GameRepository gameRepository
@@ -34,13 +30,13 @@ class LastFrameRepositroyTest extends Specification {
         bowler.setName("Player")
         bowlerRepository.save(bowler)
 
-        def gameBowler =new GameBowler()
-        gameBowler.setSeqNo((byte)1)
+        def gameBowler = new GameBowler()
+        gameBowler.setSeqNo((byte) 1)
         gameBowler.setGame(game)
         gameBowler.setBowler(bowler)
 
         game.getBowlers().add(gameBowler)
-        game=gameRepository.save(game)
+        game = gameRepository.save(game)
 
         def frameId = new FrameId()
 
@@ -48,9 +44,9 @@ class LastFrameRepositroyTest extends Specification {
         frameId.setBowler(bowler)
 
         frame.setFrameId(frameId)
-        frame.setThrow1((byte)10)
-        frame.setThrow2((byte)10)
-        frame.setThrow3((byte)2)
+        frame.setThrow1((byte) 10)
+        frame.setThrow2((byte) 10)
+        frame.setThrow3((byte) 2)
 
         when: "frame is saved"
         def result = repository.saveAndFlush(frame)

@@ -3,7 +3,6 @@ package edu.shu.bowling.model;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 
 @Entity
@@ -13,13 +12,13 @@ public class LastFrame {
     private FrameId frameId;
 
     @Column(name = "throw1")
-    private byte throw1;
+    private byte throw1 = -1;
 
     @Column(name = "throw2")
-    private byte throw2;
+    private byte throw2 = -1;
 
     @Column(name = "throw3")
-    private byte throw3;
+    private byte throw3 = -1;
 
     public FrameId getFrameId() {
         return frameId;

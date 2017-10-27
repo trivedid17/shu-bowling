@@ -1,7 +1,6 @@
 package edu.shu.bowling.model;
 
 
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -25,14 +24,14 @@ public class Game {
     private Date endTimeDate;
 
     @Column(name = "frame_no")
-    private byte currentFrameNo=1;
+    private byte currentFrameNo = 1;
 
     @Column(name = "bowler_id")
     private String currentBowler;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status" )
-    private GameStatus status=GameStatus.ACTIVE;
+    @Column(name = "status")
+    private GameStatus status = GameStatus.ACTIVE;
 
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)

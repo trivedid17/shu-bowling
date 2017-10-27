@@ -1,14 +1,15 @@
 package edu.shu.bowling.service
 
 import edu.shu.bowling.model.Account
-import edu.shu.bowling.repository.AccountRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
+
 @SpringBootTest
 class AccountServiceImplTest extends Specification {
     @Autowired
     private AccountService accountService
+
     def "Register Account Service"() {
 
         given: "a account"

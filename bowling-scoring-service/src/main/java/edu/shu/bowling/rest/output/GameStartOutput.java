@@ -1,13 +1,13 @@
 package edu.shu.bowling.rest.output;
 
 public class GameStartOutput {
-   public String getGameId() {
-      return gameId;
-   }
+    private String gameId;
 
-   public void setGameId(String gameId) {
-      this.gameId = gameId;
-   }
+    public String getGameId() {
+        return gameId;
+    }
 
-   private String gameId ;
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
+    }
 }

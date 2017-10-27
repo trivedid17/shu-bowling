@@ -1,10 +1,6 @@
 package edu.shu.bowling.repository
 
-import edu.shu.bowling.model.Bowler
-import edu.shu.bowling.model.Frame
-import edu.shu.bowling.model.FrameId
-import edu.shu.bowling.model.Game
-import edu.shu.bowling.model.GameBowler
+import edu.shu.bowling.model.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import spock.lang.Specification
@@ -18,42 +14,42 @@ class FrameRepositroyTest extends Specification {
     private GameRepository gameRepository
 
     @Autowired
-    private BowlerRepositroy bowlerRepository
+    private BowlerRepository bowlerRepository
 
 
     def "Frame  record in database"() {
 
         given: "a Frame object"
-           def frame = new Frame()
+        def frame = new Frame()
 
-            def game = new Game()
-            game.setLaneId(1)
-            game.setStartTime(new Date())
+        def game = new Game()
+        game.setLaneId(1)
+        game.setStartTime(new Date())
 
-            def bowler = new Bowler()
-            bowler.setName("Player")
-            bowlerRepository.save(bowler)
+        def bowler = new Bowler()
+        bowler.setName("Player")
+        bowlerRepository.save(bowler)
 
-            def gameBowler =new GameBowler()
-            gameBowler.setSeqNo((byte)1)
-            gameBowler.setGame(game)
-            gameBowler.setBowler(bowler)
+        def gameBowler = new GameBowler()
+        gameBowler.setSeqNo((byte) 1)
+        gameBowler.setGame(game)
+        gameBowler.setBowler(bowler)
 
-            game.getBowlers().add(gameBowler)
-            game=gameRepository.save(game)
+        game.getBowlers().add(gameBowler)
+        game = gameRepository.save(game)
 
-            def frameId = new FrameId()
+        def frameId = new FrameId()
 
-            frameId.setGame(game)
-            frameId.setBowler(bowler)
+        frameId.setGame(game)
+        frameId.setBowler(bowler)
 
-            frame.setFrameId(frameId)
-            frame.setThrow1((byte)3)
-            frame.setThrow2((byte)2)
+        frame.setFrameId(frameId)
+        frame.setThrow1((byte) 3)
+        frame.setThrow2((byte) 2)
 
         when: "frame is saved"
-            def result = repository.saveAndFlush(frame)
+        def result = repository.saveAndFlush(frame)
         then: "the seqno in result should not be null"
-            result.frameId != null
+        result.frameId != null
     }
 }

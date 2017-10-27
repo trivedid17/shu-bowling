@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class StartGameInput {
 
-    Set<Bowler> bowlers = new HashSet<>();
+    private Set<Bowler> bowlers = new HashSet<>();
     private int laneId;
 
     public int getLaneId() {

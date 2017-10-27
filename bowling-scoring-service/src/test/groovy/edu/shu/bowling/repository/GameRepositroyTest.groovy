@@ -13,7 +13,7 @@ class GameRepositroyTest extends Specification {
     private GameRepository repository
 
     @Autowired
-    private BowlerRepositroy bowlerRepositroy
+    private BowlerRepository bowlerRepositroy
 
 
     def "Save game record in database"() {
@@ -31,13 +31,13 @@ class GameRepositroyTest extends Specification {
         def gameBowler = new GameBowler()
         gameBowler.setBowler(bowler)
         gameBowler.setGame(game)
-        gameBowler.setSeqNo((byte)1)
+        gameBowler.setSeqNo((byte) 1)
 
         game.getBowlers().add(gameBowler)
 
 
         when: "game is saved"
-            def result = repository.saveAndFlush(game)
+        def result = repository.saveAndFlush(game)
         then: "gameid in result should not be null"
         result.gameId != null
     }
@@ -66,15 +66,15 @@ class GameRepositroyTest extends Specification {
         game.setLaneId(1)
         game.setStartTime(new Date())
 
-        for(int i=0;i<7;i++) {
-           def bowler = new Bowler()
-            bowler.setName("Mayak"+i)
+        for (int i = 0; i < 7; i++) {
+            def bowler = new Bowler()
+            bowler.setName("Mayak" + i)
             bowlerRepositroy.save(bowler)
 
             def gameBowler = new GameBowler()
             gameBowler.setBowler(bowler)
             gameBowler.setGame(game)
-            gameBowler.setSeqNo((byte)(i+1))
+            gameBowler.setSeqNo((byte) (i + 1))
 
             game.getBowlers().add(gameBowler)
         }

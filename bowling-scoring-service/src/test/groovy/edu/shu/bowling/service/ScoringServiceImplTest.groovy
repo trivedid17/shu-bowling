@@ -7,7 +7,7 @@ import edu.shu.bowling.model.Bowler
 import edu.shu.bowling.model.Game
 import edu.shu.bowling.model.GameBowler
 import edu.shu.bowling.model.GameStatus
-import edu.shu.bowling.repository.BowlerRepositroy
+import edu.shu.bowling.repository.BowlerRepository
 import edu.shu.bowling.repository.GameRepository
 import edu.shu.bowling.rest.input.CalculateScoreInput
 import edu.shu.bowling.rest.input.StartGameInput
@@ -25,7 +25,7 @@ class ScoringServiceImplTest extends Specification {
     private GameRepository gameRepository
 
     @Autowired
-    private BowlerRepositroy bowlerRepositroy
+    private BowlerRepository bowlerRepositroy
 
     def "Start a new Game with 6 players"() {
 
@@ -33,9 +33,9 @@ class ScoringServiceImplTest extends Specification {
         def game = new StartGameInput()
         game.setLaneId(1)
 
-        for(int i=0;i<6;i++) {
+        for (int i = 0; i < 6; i++) {
             def bowler = new Bowler()
-            bowler.setName("Player"+i)
+            bowler.setName("Player" + i)
             game.getBowlers().add(bowler)
         }
 
@@ -68,7 +68,7 @@ class ScoringServiceImplTest extends Specification {
         game.setLaneId(1)
 
         when: "game is started"
-          scoreService.startGame(game)
+        scoreService.startGame(game)
         then: "should throw exception"
         final ValidationException exception = thrown()
         final message = exception.message
@@ -81,11 +81,11 @@ class ScoringServiceImplTest extends Specification {
         given: "A pins"
         def input = new CalculateScoreInput()
         input.gameId = "Not exist"
-        input.setPins((byte)22)
+        input.setPins((byte) 22)
 
 
         when: "game is started"
-         scoreService.calculteScore(input)
+        scoreService.calculateScore(input)
         then: "should throw exception"
         thrown(GameNotExistException)
     }
@@ -106,17 +106,17 @@ class ScoringServiceImplTest extends Specification {
         def gameBowler = new GameBowler()
         gameBowler.setBowler(bowler)
         gameBowler.setGame(game)
-        gameBowler.setSeqNo((byte)1)
+        gameBowler.setSeqNo((byte) 1)
 
         game.getBowlers().add(gameBowler)
 
-       def result = gameRepository.saveAndFlush(game)
+        def result = gameRepository.saveAndFlush(game)
         def input = new CalculateScoreInput()
         input.gameId = result.getGameId()
-        input.setPins((byte)22)
+        input.setPins((byte) 22)
 
         when: "game is started"
-         scoreService.calculteScore(input)
+        scoreService.calculateScore(input)
         then: "should throw exception"
         thrown(GameNotActiveException)
     }
