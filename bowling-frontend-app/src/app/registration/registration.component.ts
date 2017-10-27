@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient} from '@angular/common/http';
+
 
 @Component({
   selector: 'app-registration',
@@ -7,15 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationComponent implements OnInit {
 
-  name : string;
+  firstName : string;
+  lastName : string;
+  birthDate : Date;
   email: string;
   phoneNumber: string;
+  userId : string;
   password: string;
 
-  constructor() { }
+  // Inject HttpClient into your component or service.
+  constructor(private http: HttpClient) { }
 
-  ngOnInit() {
-    this.name = "hello ";
+  ngOnInit(): void {
+
   }
 
 }
+
+
+
