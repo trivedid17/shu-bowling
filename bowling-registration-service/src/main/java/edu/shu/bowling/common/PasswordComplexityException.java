@@ -6,21 +6,21 @@ import org.springframework.http.HttpStatus;
 
 @ControllerAdvice
 @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-public final class PasswordLengthException extends RuntimeException {
+public final class PasswordComplexityException extends RuntimeException {
 
-    public PasswordLengthException() {
+    public PasswordComplexityException() {
         super();
     }
 
-    public PasswordLengthException(final String message, final Throwable cause) {
+    public PasswordComplexityException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public PasswordLengthException(final String message) {
+    public PasswordComplexityException(final String message) {
         super(message);
     }
 
-    public PasswordLengthException(final Throwable cause) {
+    public PasswordComplexityException(final Throwable cause) {
         super(cause);
     }
 
