@@ -1,5 +1,7 @@
 package edu.shu.bowling.score.dto.input;
 
+import edu.shu.bowling.score.dto.PlayerDto;
+
 import java.util.ArrayList;
 import java.util.List;
 

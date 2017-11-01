@@ -34,6 +34,7 @@ public class ScoreServiceImpl implements ScoreService {
                 }
                 player.setSeqNo(playerCount++);
             }
+            game.setCurrentFrameNo(1);
             game.setStartTime(new Date());
             result = gameRepository.save(game).getGameId();
         } catch (ConstraintViolationException exception) {
@@ -137,9 +138,7 @@ public class ScoreServiceImpl implements ScoreService {
 
                     }
                     frame.setRoll2(pins);
-                }
-
-                if (frame.rollsPlayedCount() == 2) {
+                }else if (frame.rollsPlayedCount() == 2) {
                     int total = frame.getRoll1() + frame.getRoll2() + pins;
                     if (total > 10 && !(frame.getRoll1() == 10 || frame.getRoll2() == 10 || ((LastFrame) frame).getRoll3() == 10)) {
                         throw new ValidationException("If there is no strikes in any throws of last frame then sum of three frame should not exceed 10 ");

@@ -1,4 +1,4 @@
-package edu.shu.bowling.score.dto.input;
+package edu.shu.bowling.score.dto.output;
 
 public class StartGameResponse {
     private String gameId;
