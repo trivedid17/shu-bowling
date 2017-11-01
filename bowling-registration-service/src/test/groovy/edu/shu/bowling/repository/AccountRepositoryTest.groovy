@@ -20,8 +20,8 @@ class AccountRepositoryTest extends Specification {
         account.setLastName("Togadiya")
         account.setBirthDate(new Date())
         account.setEmail("about@com")
-        account.setPhone("46583465")
-        account.setPassword("sadasdas")
+        account.setPhone("2035554444")
+        account.setPassword("@df#Asder123")
         when: "account is saved"
         def result = repository.saveAndFlush(account)
         then: "record should be saved"
