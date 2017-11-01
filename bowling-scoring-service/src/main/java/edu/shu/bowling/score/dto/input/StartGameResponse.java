@@ -1,6 +1,6 @@
-package edu.shu.bowling.rest.output;
+package edu.shu.bowling.score.dto.input;
 
-public class GameStartOutput {
+public class StartGameResponse {
     private String gameId;
 
     public String getGameId() {

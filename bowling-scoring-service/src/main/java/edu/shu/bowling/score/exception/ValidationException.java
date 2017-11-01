@@ -1,4 +1,4 @@
-package edu.shu.bowling.common;
+package edu.shu.bowling.score.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -6,21 +6,21 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-public final class GameNotActiveException extends RuntimeException {
+public final class ValidationException extends RuntimeException {
 
-    public GameNotActiveException() {
+    public ValidationException() {
         super();
     }
 
-    public GameNotActiveException(final String message, final Throwable cause) {
+    public ValidationException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public GameNotActiveException(final String message) {
+    public ValidationException(final String message) {
         super(message);
     }
 
-    public GameNotActiveException(final Throwable cause) {
+    public ValidationException(final Throwable cause) {
         super(cause);
     }
 
