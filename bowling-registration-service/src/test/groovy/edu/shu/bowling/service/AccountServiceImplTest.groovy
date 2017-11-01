@@ -19,7 +19,7 @@ class AccountServiceImplTest extends Specification {
         account.setLastName("Togadiya1")
         account.setBirthDate(new Date())
         account.setEmail("about1@com")
-        account.setPhone("46583463")
+        account.setPhone("2035554444")
         account.setPassword("sadasssdas")
         when: "account is registered"
         def result = accountService.register(account)

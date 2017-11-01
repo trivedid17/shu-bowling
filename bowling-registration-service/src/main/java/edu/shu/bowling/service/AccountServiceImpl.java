@@ -14,9 +14,14 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account register(Account account) {
 
-        if (accountRepository.exists(account.getUserId())) {
-            throw new AccountAlreadyExistException("Account Already Exist");
-        }
-        return accountRepository.saveAndFlush(account);
+            if(accountRepository.exists(account.getUserId()))
+            {
+                throw new AccountAlreadyExistException("Account Already Exist");
+            }
+            else if (accountRepository.exists(account.getPhone()))
+            {
+                throw new AccountAlreadyExistException("Account Already Exist");
+            }
+            return accountRepository.saveAndFlush(account);
     }
 }
