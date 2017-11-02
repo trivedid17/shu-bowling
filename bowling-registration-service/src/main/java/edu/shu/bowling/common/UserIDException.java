@@ -6,21 +6,21 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-public final class AccountAlreadyExistException extends RuntimeException {
+public final class UserIDException extends RuntimeException {
 
-    public AccountAlreadyExistException() {
+    public UserIDException() {
         super();
     }
 
-    public AccountAlreadyExistException(final String message, final Throwable cause) {
+    public UserIDException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public AccountAlreadyExistException(final String message) {
+    public UserIDException(final String message) {
         super(message);
     }
 
-    public AccountAlreadyExistException(final Throwable cause) {
+    public UserIDException(final Throwable cause) {
         super(cause);
     }
 
