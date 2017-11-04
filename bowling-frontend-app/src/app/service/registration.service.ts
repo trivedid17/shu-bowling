@@ -13,7 +13,7 @@ export class RegistrationService {
 
    // account.birthDate = account.birthDate.getTime();
 
-    this.http.post('http://localhost:4200/register', account).subscribe(data => {
+    this.http.post('/api/account/register', account).subscribe(data => {
         console.log('working fine');
       },
       // Errors will call this callback instead:

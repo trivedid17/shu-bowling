@@ -1,1 +1,1 @@
-include ":bowling-config-server", ":bowling-scoring-service", ":bowling-registration-service", ":bowling-frontend-app"
+include ":bowling-eureka-discovery-service",":bowling-api-gateway-server",":bowling-config-server", ":bowling-scoring-service", ":bowling-registration-service", ":bowling-frontend-app"

@@ -1,6 +1,7 @@
 plugins {
   id "com.moowork.node" version "0.12"
 }
+apply plugin: 'java'
 
 version '0.0.1'
 
@@ -12,8 +13,14 @@ node {
   nodeModulesDir = file("${project.projectDir}")
 }
 
-task build(type: NpmTask) {
+task build_dev(type: NpmTask) {
   args = ['run', 'build']
 }
 
-build.dependsOn(npm_install)
+task build_prod(type: NpmTask) {
+  args = ['run', 'build_prod']
+}
+
+build_dev.dependsOn(npm_install)
+
+compileJava.dependsOn(build_prod)

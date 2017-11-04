@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ScoreService
+    name: APIGatewayService
   profiles:
     active: dev
   cloud:
