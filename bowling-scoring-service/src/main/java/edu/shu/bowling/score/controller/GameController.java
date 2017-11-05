@@ -48,6 +48,11 @@ public class GameController {
         ScoreBoardDto scoreboard = new ScoreBoardDto();
         scoreboard.setGameId(game.getGameId());
         scoreboard.setGameStatus(game.getStatus().toString());
+        PlayerDto currentPlayerDto = new PlayerDto();
+        currentPlayerDto.setRank(game.getCurrentPlayer().getSeqNo());
+        currentPlayerDto.setName(game.getCurrentPlayer().getPlayerName());
+        scoreboard.setCurrentPlayer(currentPlayerDto);
+        scoreboard.setCurrentFrameNo(game.getCurrentFrameNo());
 
         for(Player player : game.getPlayers()){
             PlayerDto playerDto = new PlayerDto();

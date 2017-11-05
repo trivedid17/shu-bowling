@@ -1,5 +1,7 @@
 package edu.shu.bowling.score.dto;
 
+import edu.shu.bowling.score.model.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,11 +9,29 @@ public class ScoreBoardDto {
     String gameId;
     String gameStatus;
     List<PlayerDto> players;
+    private PlayerDto currentPlayer;
+    private int currentFrameNo;
 
-
-    public ScoreBoardDto(){
+    public ScoreBoardDto() {
         players = new ArrayList<>();
     }
+
+    public PlayerDto getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(PlayerDto currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public int getCurrentFrameNo() {
+        return currentFrameNo;
+    }
+
+    public void setCurrentFrameNo(int currentFrameNo) {
+        this.currentFrameNo = currentFrameNo;
+    }
+
     public String getGameId() {
         return gameId;
     }

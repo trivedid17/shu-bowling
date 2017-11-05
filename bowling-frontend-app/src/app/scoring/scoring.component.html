@@ -93,7 +93,7 @@
 
     </table>
 <div class="nextroll">
-  <button [disabled]="game.players.length < 1" class="btn btn-primary " (click)="playRoll()">Next Roll</button>
+  <button [disabled]="game.gameStatus != 'ACTIVE'" class="btn btn-primary " (click)="playRoll()">Next Roll</button>
 </div>
   </div>
 </div>

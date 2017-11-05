@@ -18,4 +18,8 @@ export class ScoringService {
   playGame(pins: Throw) :  Observable<Game> {
     return this.http.post<Game>('/api/game/score', pins);
   }
+
+  getscoreByGameId(gameId: String) :  Observable<Game> {
+    return this.http.post<Game>('/api/game/gamescore', gameId);
+  }
 }

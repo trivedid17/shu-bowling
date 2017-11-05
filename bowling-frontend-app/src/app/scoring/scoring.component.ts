@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Game} from './game';
 import {ScoringService} from '../service/scoring.service';
 import {Player} from "./player";
-import {forEach} from "@angular/router/src/utils/collection";
 import {Frame} from "./frame";
 import {Throw} from "./throw";
 
@@ -29,11 +28,10 @@ export class ScoringComponent implements OnInit {
   addPlayer(playerName): void {
 
     let player = new Player();
-   for(let i=0; i<10;i++)
-   {
-     let frame = new Frame();
-     player.frames.push(frame);
-   }
+    for (let i = 0; i < 10; i++) {
+      let frame = new Frame();
+      player.frames.push(frame);
+    }
     player.name = playerName;
     this.game.players.push(player);
     this.newPlayerName = "";
@@ -45,11 +43,9 @@ export class ScoringComponent implements OnInit {
 
   }
 
-  getEmptyFrames(size): Array<Frame>
-  {
+  getEmptyFrames(size): Array<Frame> {
     let frames = new Array<Frame>();
-    for(let i=0;i<size;i++)
-    {
+    for (let i = 0; i < size; i++) {
       let frame = new Frame();
       frames.push(frame);
     }
@@ -58,22 +54,64 @@ export class ScoringComponent implements OnInit {
 
   startGame(): void {
     this.scoringService.startGame(this.game).subscribe((response) => {
-      this.game.gameId=response.gameId;
+      this.game.gameId = response.gameId;
+      this.game.currentPlayer = this.game.players[0];
+      this.game.currentFrameNo = 1;
     }, (err) => {
       alert(err.message)
     });
   }
 
-  playRoll(): void
-  {
+  playRoll(): void {
     let nextPins = new Throw();
-    nextPins.gameId=this.game.gameId;
+    let player = this.getCurrentPlayer();
+    let frame = this.getCurrentFrame(player);
 
-    nextPins.pins=4;
+    if (this.game.currentFrameNo < 9) {
+      if (frame.roll1 > -1) {
+        nextPins.pins = this.getRandomInt(0, (10 - frame.roll1));
+      } else {
+        nextPins.pins = this.getRandomInt(0, 10);
+      }
+    } else {
+      if (frame.roll1 > -1 && frame.roll1 != 10 && frame.roll2 < 0) {
+        nextPins.pins = this.getRandomInt(0, (10 - frame.roll1));
+      } else {
+        nextPins.pins = this.getRandomInt(0, 10);
+      }
+    }
+
+    nextPins.gameId = this.game.gameId;
+
+
     this.scoringService.playGame(nextPins).subscribe((response) => {
-      this.game =response;
+      this.game = response;
     }, (err) => {
       alert(err.message)
     });
+  }
+
+
+  getCurrentPlayer(): Player {
+    for (let i = 0; i < this.game.players.length; i++) {
+      if (this.game.players[i].rank == this.game.currentPlayer.rank) {
+        return this.game.players[i];
+      }
+    }
+    return this.game.players[0];
+  }
+
+
+  getCurrentFrame(player): Frame {
+    for (let i = 0; i < player.frames.length; i++) {
+      if (player.frames[i].frameNo == this.game.currentFrameNo) {
+        return player.frames[i];
+      }
+    }
+    return new Frame();
+  }
+
+  getRandomInt(min, max): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
