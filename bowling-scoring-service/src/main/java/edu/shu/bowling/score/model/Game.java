@@ -100,12 +100,9 @@ public class Game {
     }
 
     public boolean isCurrentPlayerLastPlayer() {
-        for (Player player : getPlayers()) {
-
-            if (player.getSeqNo() == getPlayers().size()) {
+            if (currentPlayer.getSeqNo() == getPlayers().size()) {
                 return true;
             }
-        }
         return false;
     }
 

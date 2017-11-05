@@ -190,7 +190,7 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     private int calculateFrameScore(Frame frame, Frame nextFrame, Frame thirdFrame) {
-        if (!(frame.hasStrike() || frame.hasSpare())) {
+        if (!(frame.hasStrike() || frame.hasSpare()) && frame.rollsPlayedCount()>1) {
             return frame.getRoll1() + frame.getRoll2();
         }
 
