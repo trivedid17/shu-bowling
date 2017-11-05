@@ -1,3 +1,67 @@
-<p>
-  scoring works!
-</p>
+<div class="form-horizontal">
+  <div id="setup">
+    <table>
+      <tr>
+        <header>
+          <td colspan="3"><h1>Welcome to Bowling</h1></td>
+        </header>
+      </tr>
+      <tr>
+        <td colspan="3"><p>Enter each player name and then click the "Play" button to start the round.</p></td>
+      </tr>
+      <tr class="form-inline">
+        <td>
+          <strong>Lane Number:</strong>
+          <select class="form-control">
+          <option>Lane 1</option>
+          <option>Lane 2</option>
+          <option>Lane 3</option>
+          <option>Lane 4</option>
+          <option>Lane 5</option>
+          <option>Lane 6</option>
+          <option>Lane 7</option>
+          <option>Lane 8</option>
+          <option>Lane 9</option>
+          <option>Lane 10</option>
+        </select>
+        </td>
+
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="form-inline" *ngIf="game.players.length < 6">
+        <td ><input  [disabled]="game.players.length >= 6" type="text" class="form-control" id="newplayer"
+                     placeholder="Enter New Player Name" [(ngModel)]="newPlayerName">
+        </td>
+        <td>
+          <button  [disabled]="newPlayerName.length < 1" class="btn btn-default " (click)="addPlayer(newPlayerName)">Add</button>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+    <div class="form-inline">
+      <h3>Players</h3>
+      <ol>
+        <table>
+          <tr *ngFor="let player of game.players; index as i">
+            <td>
+              <li></li>
+            </td>
+            <td id="player"><strong>{{player}}</strong></td>
+            <td><a class="link" (click)="removePlayer(player)">Remove</a></td>
+        </table>
+      </ol>
+    </div>
+    <button [disabled]="game.players.length < 1" class="btn btn-primary " (click)="startGame()">Start</button>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+

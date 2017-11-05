@@ -9,6 +9,7 @@ import { HttpClientModule} from '@angular/common/http';
 import { RegistrationService} from './service/registration.service';
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { ScoringComponent } from './scoring/scoring.component';
+import {ScoringService} from './service/scoring.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { ScoringComponent } from './scoring/scoring.component';
     HttpClientModule,
     NgDatepickerModule
   ],
-  providers: [RegistrationService],
+  providers: [RegistrationService,ScoringService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
