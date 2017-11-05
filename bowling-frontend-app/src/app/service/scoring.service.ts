@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Game } from '../scoring/game';
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/operator/map";
+import {Throw} from "../scoring/throw";
 
 @Injectable()
 export class ScoringService {
@@ -8,23 +11,11 @@ export class ScoringService {
   constructor(private http: HttpClient) { }
   gameId: string;
 
-  startGame(game: Game) : string {
-
-
-
-    // account.birthDate = account.birthDate.getTime();
-
-    this.http.post('/api/game/start', game).subscribe(data => {
-       this.gameId=data.toString();
-      },
-      // Errors will call this callback instead:
-      err => {
-        console.log('Something went wrong!');
-      }
-    );
-    return  this.gameId;
-
+  startGame(game: Game) :  Observable<Game> {
+   return this.http.post<Game>('/api/game/start', game);
   }
 
-
+  playGame(pins: Throw) :  Observable<Game> {
+    return this.http.post<Game>('/api/game/score', pins);
+  }
 }
