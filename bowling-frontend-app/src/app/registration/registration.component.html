@@ -15,10 +15,26 @@
         </tr>
         <tr>
           <td>
-            Name :
+            First Name :
           </td>
           <td>
-            <input type="text"  [(ngModel)]="name"  placeholder="Enter name here">
+            <input type="text"  [(ngModel)]="userAccount.firstName"  placeholder="Enter first name here">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Last Name :
+          </td>
+          <td>
+            <input type="text"  [(ngModel)]="userAccount.lastName"  placeholder="Enter last name here">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Birth Date :
+          </td>
+          <td>
+            <input type="date"  [(ngModel)]="userAccount.birthDate"  placeholder="Enter birth date here">
           </td>
         </tr>
         <tr>
@@ -26,7 +42,7 @@
             Email :
           </td>
           <td>
-            <input type="text" [(ngModel)]="email" placeholder="Enter email here">
+            <input type="text" [(ngModel)]="userAccount.email" placeholder="Enter email here">
           </td>
         </tr>
         <tr>
@@ -34,7 +50,15 @@
             Phone Number :
           </td>
           <td>
-            <input type="text" [(ngModel)]="phoneNumber" placeholder="Enter phone number here">
+            <input type="text" [(ngModel)]="userAccount.phoneNumber" placeholder="Enter phone number here">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            UserId :
+          </td>
+          <td>
+            <input type="text"  [(ngModel)]="userAccount.userId"  placeholder="Enter userid here">
           </td>
         </tr>
         <tr>
@@ -42,14 +66,14 @@
             Password :
           </td>
           <td>
-            <input type="text"[(ngModel)]="password" placeholder="Enter password here">
+            <input type="password"[(ngModel)]="userAccount.password" placeholder="Enter password here">
           </td>
         </tr>
         <tr>
           <td align="center"  colspan="2">
-            <button type="button">Submit</button>
+            <button (click)="submit()" type="button">Submit</button>
 
-            <button type="button">Clear</button>
+            <button (click)="clear()" type="button">Clear</button>
           </td>
         </tr>
       </table>

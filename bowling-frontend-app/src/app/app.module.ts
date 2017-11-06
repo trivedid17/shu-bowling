@@ -6,19 +6,25 @@ import { RegistrationComponent } from './registration/registration.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule} from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
+import { RegistrationService} from './service/registration.service';
+import { NgDatepickerModule } from 'ng2-datepicker';
+import { ScoringComponent } from './scoring/scoring.component';
+import {ScoringService} from './service/scoring.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ScoringComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgDatepickerModule
   ],
-  providers: [],
+  providers: [RegistrationService,ScoringService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

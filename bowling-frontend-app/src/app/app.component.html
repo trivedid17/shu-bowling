@@ -1,8 +1,10 @@
-<div>
-      <a routerLink="/register">Register</a>
-      <a routerLink="/register">Play Game</a>
-  <div>
-    <router-outlet></router-outlet>
+<nav>
+  <div >
+      <ul  routerLinkActive="active">
+            <li ><a  routerLink="register">Register</a></li>
+            <li ><a  routerLink="score">Play</a></li>
+      </ul>
   </div>
-</div>
+</nav>
 
+<router-outlet></router-outlet>

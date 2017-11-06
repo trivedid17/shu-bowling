@@ -1,0 +1,38 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:  http://localhost:8761/eureka
+server:
+  port: 8084
+security:
+  basic:
+    enable: false
+management:
+  security:
+    enabled: false
+zuul:
+  routes:
+    route1:
+      serviceId: AccountService
+      path: /api/account/**
+      stripPrefix: true
+    route2:
+      serviceId: ScoreService
+      path: /api/game/**
+      stripPrefix: true
+    route3:
+      serviceId: UIService
+      path: /ui/**
+      stripPrefix: true
+  host:
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 60000
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+ribbon:
+  ReadTimeout: 100000
+  ConnectTimeout: 100000

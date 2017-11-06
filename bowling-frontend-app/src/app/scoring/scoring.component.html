@@ -1,0 +1,102 @@
+<div class="form-horizontal">
+  <div id="setup" *ngIf="game.gameId.length == 0">
+    <table>
+      <tr>
+        <header>
+          <td colspan="3"><h1>Welcome to Bowling</h1></td>
+        </header>
+      </tr>
+      <td> <td colspan="7"><p>Video Tutorial To Understand How The Game works</p>
+      <iframe width="1000" height="300" src="https://www.youtube.com/embed/oSUi1d5sAb0?rel=0" frameborder="0" allowfullscreen></iframe>
+    </td>
+      <tr>
+        <td colspan="3"><p>Enter each player name and then click the "Play" button to start the round.</p></td>
+      </tr>
+      <tr class="form-inline">
+        <td>
+          <strong>Lane Number:</strong>
+          <select [(ngModel)]="game.laneId" class="form-control">
+            <option value="1">Lane 1</option>
+            <option value="2">Lane 2</option>
+            <option value="3">Lane 3</option>
+            <option value="4">Lane 4</option>
+            <option value="5">Lane 5</option>
+            <option value="6">Lane 6</option>
+            <option value="7">Lane 7</option>
+            <option value="8">Lane 8</option>
+            <option value="9">Lane 9</option>
+            <option value="10">Lane 10</option>
+          </select>
+        </td>
+
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="form-inline" *ngIf="game.players.length < 6">
+        <td ><input  [disabled]="game.players.length >= 6" type="text" class="form-control" id="newplayer"
+                     placeholder="Enter New Player Name" [(ngModel)]="newPlayerName">
+        </td>
+        <td>
+          <button  [disabled]="newPlayerName.length < 1" class="btn btn-default " (click)="addPlayer(newPlayerName)">Add</button>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+    <div class="form-inline">
+      <h3>Players</h3>
+      <ol>
+        <table>
+          <tr *ngFor="let player of game.players; index as i">
+            <td>
+              <li></li>
+            </td>
+            <td id="player"><strong>{{player.name}}</strong></td>
+            <td><a class="link" (click)="removePlayer(player)">Remove</a></td>
+        </table>
+      </ol>
+    </div>
+    <button [disabled]="game.players.length < 1" class="btn btn-primary " (click)="startGame()">Start</button>
+  </div>
+  <div class="form-horizontal" *ngIf="game.gameId.length > 0">
+    <table border="1" class="scoreboard" >
+      <tr >
+        <th class="frame" >Players Name</th>
+        <th  class="frame">Frame 1</th>
+        <th  class="frame">Frame 2</th>
+        <th  class="frame">Frame 3</th>
+        <th  class="frame">Frame 4</th>
+        <th  class="frame">Frame 5</th>
+        <th  class="frame">Frame 6</th>
+        <th  class="frame">Frame 7</th>
+        <th  class="frame">Frame 8</th>
+        <th  class="frame">Frame 9</th>
+        <th  class="frame">Frame 10</th>
+        <th  class="frame">Score</th>
+      </tr>
+      <tr *ngFor="let player of game.players">
+        <td  class="frame" id="playername">{{player.name}}</td>
+
+        <td *ngFor="let frame of player.frames; index as i" class="frame">
+          <span *ngIf="frame.roll1 == 10 && i<9">[X] </span>
+          <span *ngIf="i<9 && frame.roll1 != 10 && (frame.roll1 + frame.roll2)== 10">{{frame.roll1}} | / </span>
+          <span *ngIf="i<9 && frame.roll1 != 10 && (frame.roll1 + frame.roll2)!= 10  && (frame.roll1 > -1 )">{{frame.roll1}} | </span> <span *ngIf="i<9 && (frame.roll1 + frame.roll2)!= 10  && (frame.roll2 > -1 )">{{frame.roll2}}  </span>
+          <span *ngIf="i==9 && frame.roll1 == 10 "> [X]  </span>
+          <span *ngIf="i==9 && frame.roll2 == 10 "> |[X] </span>
+          <span *ngIf="i==9 && frame.roll3 == 10 "> |[X] </span>
+          <span *ngIf="i==9 && frame.roll1 > -1 "> {{frame.roll1}}  </span>
+          <span *ngIf="i==9 && frame.roll2 > -1 "> | {{frame.roll2}} </span>
+          <span *ngIf="i==9 && frame.roll3 > -1 "> | {{frame.roll3}} </span>
+        </td>
+        <td  *ngFor="let frame of getEmptyFrames(10-player.frames.length)"  class="frame">
+        </td>
+        <td class="totalscore">
+          {{player.score}}
+        </td>
+      </tr>
+
+    </table>
+    <div class="nextroll">
+      <button [disabled]="game.gameStatus != 'ACTIVE'" class="btn btn-primary " (click)="playRoll()">Next Roll</button>
+    </div>
+  </div>
+</div>
