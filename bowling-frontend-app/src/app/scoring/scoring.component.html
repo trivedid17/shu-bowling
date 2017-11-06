@@ -6,6 +6,9 @@
           <td colspan="3"><h1>Welcome to Bowling</h1></td>
         </header>
       </tr>
+      <td> <td colspan="7"><p>Video Tutorial To Understand How The Game works</p>
+      <iframe width="1000" height="300" src="https://www.youtube.com/embed/oSUi1d5sAb0?rel=0" frameborder="0" allowfullscreen></iframe>
+    </td>
       <tr>
         <td colspan="3"><p>Enter each player name and then click the "Play" button to start the round.</p></td>
       </tr>
@@ -13,17 +16,17 @@
         <td>
           <strong>Lane Number:</strong>
           <select [(ngModel)]="game.laneId" class="form-control">
-          <option value="1">Lane 1</option>
-          <option value="2">Lane 2</option>
-          <option value="3">Lane 3</option>
-          <option value="4">Lane 4</option>
-          <option value="5">Lane 5</option>
-          <option value="6">Lane 6</option>
-          <option value="7">Lane 7</option>
-          <option value="8">Lane 8</option>
-          <option value="9">Lane 9</option>
-          <option value="10">Lane 10</option>
-        </select>
+            <option value="1">Lane 1</option>
+            <option value="2">Lane 2</option>
+            <option value="3">Lane 3</option>
+            <option value="4">Lane 4</option>
+            <option value="5">Lane 5</option>
+            <option value="6">Lane 6</option>
+            <option value="7">Lane 7</option>
+            <option value="8">Lane 8</option>
+            <option value="9">Lane 9</option>
+            <option value="10">Lane 10</option>
+          </select>
         </td>
 
         <td></td>
@@ -92,18 +95,8 @@
       </tr>
 
     </table>
-<div class="nextroll">
-  <button [disabled]="game.gameStatus != 'ACTIVE'" class="btn btn-primary " (click)="playRoll()">Next Roll</button>
-</div>
+    <div class="nextroll">
+      <button [disabled]="game.gameStatus != 'ACTIVE'" class="btn btn-primary " (click)="playRoll()">Next Roll</button>
+    </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
