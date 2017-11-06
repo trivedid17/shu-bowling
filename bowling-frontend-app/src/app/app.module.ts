@@ -10,12 +10,16 @@ import { RegistrationService} from './service/registration.service';
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { ScoringComponent } from './scoring/scoring.component';
 import {ScoringService} from './service/scoring.service';
+import { TutorialComponent } from './tutorial/tutorial.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
-    ScoringComponent
+    ScoringComponent,
+    TutorialComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
