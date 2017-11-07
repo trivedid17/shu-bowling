@@ -83,8 +83,8 @@
           <span *ngIf="i==9 && frame.roll2 == 10 "> |[X] </span>
           <span *ngIf="i==9 && frame.roll3 == 10 "> |[X] </span>
           <span *ngIf="i==9 && frame.roll1 > -1 && frame.roll1 != 10 "> {{frame.roll1}}  </span>
-          <span *ngIf="i==9 && frame.roll2 > -1 && frame.roll1 != 10 "> | {{frame.roll2}} </span>
-          <span *ngIf="i==9 && frame.roll3 > -1 && frame.roll1 != 10 "> | {{frame.roll3}} </span>
+          <span *ngIf="i==9 && frame.roll2 > -1 && frame.roll2 != 10 "> | {{frame.roll2}} </span>
+          <span *ngIf="i==9 && frame.roll3 > -1 && frame.roll3 != 10 "> | {{frame.roll3}} </span>
         </td>
         <td  *ngFor="let frame of getEmptyFrames(10-player.frames.length)"  class="frame">
         </td>
