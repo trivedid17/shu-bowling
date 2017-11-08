@@ -50,3 +50,12 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+code.style.schemes.xml
+debugger.xml
+editor.xml
+ide.general.xml
+codestyles
+BrianFiles
+_mac
+.idea
+
