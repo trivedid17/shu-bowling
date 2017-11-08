@@ -18,10 +18,10 @@ public class AccountServiceImpl implements AccountService {
             {
                 throw new AccountAlreadyExistException("Account Already Exist");
             }
-           /* else if (accountRepository.exists(account.getPhone()))
+            else if (accountRepository.findByEmailAddress(account.getEmail()) !=null)
             {
                 throw new AccountAlreadyExistException("Account Already Exist");
-            }*/
+            }
             return accountRepository.saveAndFlush(account);
     }
 }
